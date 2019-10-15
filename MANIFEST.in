@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include spine *.css
+recursive-include spine *.csv
+recursive-include spine *.html
+recursive-include spine *.ico
+recursive-include spine *.js
+recursive-include spine *.json
+recursive-include spine *.md
+recursive-include spine *.png
+recursive-include spine *.py
+recursive-include spine *.svg
+recursive-include spine *.txt
+recursive-exclude spine *.pyc

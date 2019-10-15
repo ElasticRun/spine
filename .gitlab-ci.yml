@@ -1,0 +1,44 @@
+stages:
+  - migrate
+  - deploy01
+  - deploy02
+  - deploy03
+
+migrate:
+  stage: migrate
+  script:
+    - "./migrate.sh"
+  only:
+    - v11-deployment
+  tags:
+    - wra01
+
+.gitpull: &deploy-script
+  script:
+    - "whoami"
+    - "cd /home/frappe/frappe-bench/apps/$CI_PROJECT_NAME && \
+     git pull prod-deployment v11-deployment && \
+     cd ../.. && \
+     sudo supervisorctl restart all"
+  only:
+    - v11-deployment
+  tags:
+    - v11-deployment
+
+wra01:
+  stage: deploy01
+  <<: *deploy-script
+  tags:
+    - wra01
+
+wra02:
+  stage: deploy02
+  <<: *deploy-script
+  tags:
+    - wra02
+
+wra03:
+  stage: deploy03
+  <<: *deploy-script
+  tags:
+    - wra03
